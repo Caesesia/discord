@@ -1,43 +1,61 @@
-const FS = require('node:fs');
-const PATH = require('node:path');
-
 // Require the necessary discord.js classes
+const fs = require('node:fs');
+const path = require('node:path');
 const { Client, Collection, Events, GatewayIntentBits } = require('discord.js');
-const { TOKEN } = require('./config.json');
+const { token } = require('./config.json');
 
 // Create a new client instance
-const CLIENT = new Client({ intents: [GatewayIntentBits.Guilds] });
+const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
 // When the client is ready, run this code (only once).
 // The distinction between `client: Client<boolean>` and `readyClient: Client<true>` is important for TypeScript developers.
 // It makes some properties non-nullable.
-CLIENT.once(Events.ClientReady, readyClient => {
+client.once(Events.ClientReady, readyClient => {
 	console.log(`Ready! Logged in as ${readyClient.user.tag}`);
 });
 
 // Log in to Discord with your client's token
-CLIENT.login(TOKEN);
+client.login(token);
 
 
-const FOLDERS_PATH = PATH.join(__dirname, 'commands');
-const COMMAND_FOLDERS = FS.readdirSync(FOLDERS_PATH);
+client.commands = new Collection();
 
-for (const FOLDER of COMMAND_FOLDERS) {
-	const COMMANDS_PATH = PATH.join(FOLDERS_PATH, FOLDER);
-	const COMMAND_FILES = FS.readdirSync(COMMANDS_PATH).filter(file => file.endsWith('.js'));
-	for (const FILE of COMMAND_FILES) {
-		const FILE_PATH = PATH.join(COMMANDS_PATH, FILE);
-		const COMMAND = require(FILE_PATH);
+const foldersPath = path.join(__dirname, 'commands');
+const commandFolders = fs.readdirSync(foldersPath);
+
+for (const folder of commandFolders) {
+	const commandsPath = path.join(foldersPath, folder);
+	const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
+	for (const file of commandFiles) {
+		const filePath = path.join(commandsPath, file);
+		const command = require(filePath);
 		// Set a new item in the Collection with the key as the command name and the value as the exported module
-		if ('data' in COMMAND && 'execute' in COMMAND) {
-			CLIENT.commands.set(COMMAND.data.name, COMMAND);
+		if ('data' in command && 'execute' in command) {
+			client.commands.set(command.data.name, command);
 		} else {
-			console.log(`[WARNING] The command at ${FILE_PATH} is missing a required "data" or "execute" property.`);
+			console.log(`[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`);
 		}
 	}
 }
 
-CLIENT.on(Events.InteractionCreate, interaction => {
-    if (!interaction.isChatInputCommand()) return;
-	console.log(interaction);
+client.on(Events.InteractionCreate, async interaction => {
+	if (!interaction.isChatInputCommand()) return;
+
+	const command = interaction.client.commands.get(interaction.commandName);
+
+	if (!command) {
+		console.error(`No command matching ${interaction.commandName} was found.`);
+		return;
+	}
+
+	try {
+		await command.execute(interaction);
+	} catch (error) {
+		console.error(error);
+		if (interaction.replied || interaction.deferred) {
+			await interaction.followUp({ content: 'There was an error while executing this command!', flags: MessageFlags.Ephemeral });
+		} else {
+			await interaction.reply({ content: 'There was an error while executing this command!', flags: MessageFlags.Ephemeral });
+		}
+	}
 });
