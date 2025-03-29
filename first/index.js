@@ -18,7 +18,6 @@ CLIENT.once(Events.ClientReady, readyClient => {
 // Log in to Discord with your client's token
 CLIENT.login(TOKEN);
 
-CLIENT.commands = new Collection();
 
 const FOLDERS_PATH = PATH.join(__dirname, 'commands');
 const COMMAND_FOLDERS = FS.readdirSync(FOLDERS_PATH);
