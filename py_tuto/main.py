@@ -53,7 +53,7 @@ async def on_message(message):
 
 @client.event
 async def on_message_delete(message):
-    if message.author == message.guild.me:
+    if message.author == client.user:
         return
 
     await snitch(message)
