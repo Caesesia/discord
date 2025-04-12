@@ -7,6 +7,7 @@ import discord
 from snitch import snitch
 from puns import pun
 from homos import homos
+from tacos import tacos
 from nerd import nerd
 
 load_dotenv()
@@ -18,6 +19,8 @@ TACOS = int(os.getenv("TACOS"))
 POPOS = int(os.getenv("POPOS"))
 MYNTHOS = int(os.getenv("MYNTHOS"))
 
+#ID = {HOMOS: homos, LOGOS: logos, PATHOS: pathos, TACOS: tacos, POPOS: popos, MYNTHOS: mynthos}
+ID = {HOMOS: homos, TACOS: tacos, LOGOS: tacos}
 
 intents = discord.Intents.default()
 intents.message_content = True
@@ -47,7 +50,9 @@ async def on_message(message):
         trig = True
 
     if not trig:
-        await homos(message)
+        cible = ID.get(message.author.id)
+        if cible:
+            await cible(message)
      
 @bot.event
 async def on_message_delete(message):
