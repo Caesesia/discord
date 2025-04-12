@@ -25,22 +25,31 @@ intents = discord.Intents.default()
 intents.message_content = True
 
 # client = discord.Client(intents=intents)
-bot = commands.Bot(command_prefix="hatos ", intents=intents)
+bot = commands.Bot(command_prefix = "hatos ", intents=intents)
 
 @bot.event
 async def on_ready():
-    print(f'Bot {client.user} au rapport.')
+    print(f'Bot {bot.user} au rapport.')
 
 @bot.event
 async def on_message(message):
     if message.author == bot.user:
         return
 
-    await pun(message)
-    await nerd(message)
-    await homos(message)
+    trig = False
+ 
     await bot.process_commands(message)
 
+    if message.content.startswith(bot.command_prefix):
+        trig = True
+    elif await pun(message):
+        trig = True
+    elif await nerd(message):
+        trig = True
+
+    if not trig:
+        await homos(message)
+     
 @bot.event
 async def on_message_delete(message):
     if message.author == bot.user:
