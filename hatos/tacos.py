@@ -19,7 +19,7 @@ async def tacos(message):
             "https://tenor.com/view/honey-final-fantasy-gif-dancing-twirl-video-game-gif-16574338"]
     choix = random.choice(liste)
 
-    if message.author.id == LOGOS and random.random() < 0.1:
+    if message.author.id == TACOS and random.random() < 0.1:
         if choix == liste[4] or choix == liste[5]:
             await message.reply(liste[4])
             await message.channel.send(liste[5])
