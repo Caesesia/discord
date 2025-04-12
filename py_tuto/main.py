@@ -8,7 +8,6 @@ from snitch import snitch
 from puns import pun
 from homos import homos
 from nerd import nerd
-from commands import *
 
 load_dotenv()
 TOKEN = os.getenv("TOKEN")
@@ -23,12 +22,12 @@ MYNTHOS = int(os.getenv("MYNTHOS"))
 intents = discord.Intents.default()
 intents.message_content = True
 
-# client = discord.Client(intents=intents)
-bot = commands.Bot(command_prefix = "hatos ", intents=intents)
+bot = commands.Bot(command_prefix = ".", intents = intents, help_command = None)
 
 @bot.event
 async def on_ready():
     print(f'Bot {bot.user} au rapport.')
+    await bot.load_extension("commands")
 
 @bot.event
 async def on_message(message):
@@ -57,11 +56,6 @@ async def on_message_delete(message):
 
     await snitch(message)
 
-
-@bot.command()
-async def test(ctx):
-    
-    await ok(ctx)
 
 
 bot.run(TOKEN)
