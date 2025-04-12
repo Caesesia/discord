@@ -1,6 +1,4 @@
-# This example requires the 'message_content' intent.
-
-
+from discord.ext import commands
 from dotenv import load_dotenv
 
 import os
@@ -8,7 +6,10 @@ import random
 import discord
 
 from snitch import snitch
-
+from puns import pun
+from homos import homos
+from nerd import nerd
+from commands import ok
 
 load_dotenv()
 TOKEN = os.getenv("TOKEN")
@@ -23,40 +24,34 @@ MYNTHOS = int(os.getenv("MYNTHOS"))
 intents = discord.Intents.default()
 intents.message_content = True
 
-client = discord.Client(intents=intents)
+# client = discord.Client(intents=intents)
+bot = commands.Bot(command_prefix="hatos ", intents=intents)
 
-@client.event
+@bot.event
 async def on_ready():
-    print(f'We have logged in as {client.user}')
+    print(f'Bot {client.user} au rapport.')
 
-@client.event
+@bot.event
 async def on_message(message):
-    if message.author == client.user:
+    if message.author == bot.user:
         return
 
-    msg = message.content.lower().strip().replace(" ", "")
+    await pun(message)
+    await nerd(message)
+    await homos(message)
+    await bot.process_commands(message)
 
-    liste = ["ouais", "c'est", "greg"]
-    choix = random.choice(liste)
-
-    if "allo" in msg or "allô" in msg:
-        await message.reply('selem?')
-
-    elif msg == "quoi" or msg == "quoi?":
-        await message.reply("FEUR")
-
-    elif "https://" in message.content and "elsword" in message.content or "https://" in message.content and "nerd" in message.content:
-        await message.reply("Nerd :nerd:")
-
-    elif message.author.id == LOGOS:
-        await message.reply(choix)
-
-@client.event
+@bot.event
 async def on_message_delete(message):
-    if message.author == client.user:
+    if message.author == bot.user:
         return
 
     await snitch(message)
 
 
-client.run(TOKEN)
+@bot.command()
+async def test(ctx):
+    await ok(ctx)
+
+
+bot.run(TOKEN)
