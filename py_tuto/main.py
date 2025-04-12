@@ -2,14 +2,13 @@ from discord.ext import commands
 from dotenv import load_dotenv
 
 import os
-import random
 import discord
 
 from snitch import snitch
 from puns import pun
 from homos import homos
 from nerd import nerd
-from commands import ok
+from commands import *
 
 load_dotenv()
 TOKEN = os.getenv("TOKEN")
@@ -36,13 +35,14 @@ async def on_message(message):
     if message.author == bot.user:
         return
 
-    trig = False
- 
     await bot.process_commands(message)
 
     if message.content.startswith(bot.command_prefix):
-        trig = True
-    elif await pun(message):
+        return
+
+    trig = False
+    
+    if await pun(message):
         trig = True
     elif await nerd(message):
         trig = True
@@ -60,6 +60,7 @@ async def on_message_delete(message):
 
 @bot.command()
 async def test(ctx):
+    
     await ok(ctx)
 
 
