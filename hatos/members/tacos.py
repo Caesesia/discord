@@ -4,9 +4,8 @@ from dotenv import load_dotenv, find_dotenv
 
 load_dotenv(find_dotenv())
 TACOS = int(os.getenv("TACOS"))
-print(TACOS)
 LOGOS = int(os.getenv("LOGOS"))
-print(LOGOS)
+
 
 
 async def tacos(message):
