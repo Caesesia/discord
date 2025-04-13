@@ -1,5 +1,5 @@
 from discord.ext import commands
-from dotenv import load_dotenv
+from dotenv import load_dotenv, find_dotenv
 
 import os
 import discord
@@ -9,10 +9,11 @@ from commands.user import User
 from commands.help import Help
 
 from members.homos import homos
-#from members.pathos import pathos
+from members.logos import logos
+from members.pathos import pathos
 from members.tacos import tacos
-#from members.popos import popos
-#from members.mynthos import mynthos
+from members.popos import popos
+from members.mynthos import mynthos
 
 from functions.nerd import nerd
 from functions.puns import puns
@@ -27,8 +28,7 @@ TACOS = int(os.getenv("TACOS"))
 POPOS = int(os.getenv("POPOS"))
 MYNTHOS = int(os.getenv("MYNTHOS"))
 
-#ID = {HOMOS: homos, LOGOS: logos, PATHOS: pathos, TACOS: tacos, POPOS: popos, MYNTHOS: mynthos}
-ID = {HOMOS: homos, TACOS: tacos, LOGOS: tacos}
+ID = {HOMOS: homos, LOGOS: logos, PATHOS: pathos, TACOS: tacos, POPOS: popos, MYNTHOS: mynthos}
 
 intents = discord.Intents.default()
 intents.message_content = True
@@ -58,12 +58,12 @@ async def on_message(message):
         trig = True
     elif await nerd(message):
         trig = True
-
+    
     if not trig:
         cible = ID.get(message.author.id)
         if cible:
             await cible(message)
-     
+
 @bot.event
 async def on_message_delete(message):
     if message.author == bot.user:

@@ -11,9 +11,11 @@ LOGOS = int(os.getenv("LOGOS"))
 async def tacos(message):
 
     liste = [
+            "https://tenor.com/view/nerd-emoji-meme-this-you-gif-25696106",
+            "https://tenor.com/view/me-playing-bowser-jr-nintendo-switch-2-final-fantasy-gif-5144056626380487676",
             "ulululuuu",
             "Zack détruit Cloud",
-            "tg",
+            "https://tenor.com/view/average-dark-soul-fan-vs-average-dark-soul-ii-enjoyer-gif-26366961",
             "pler",
             '"Peak character writing" :',
             "https://tenor.com/view/honey-final-fantasy-gif-dancing-twirl-video-game-gif-16574338"

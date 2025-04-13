@@ -1,28 +1,23 @@
 import os
 import random
-from dotenv import load_dotenv
+from dotenv import load_dotenv, find_dotenv
 
-load_dotenv()
+load_dotenv(find_dotenv())
 POPOS = int(os.getenv("POPOS"))
 LOGOS = int(os.getenv("LOGOS"))
 
 
 
-async def tacos(message):
+async def popos(message):
 
     liste = [
             "ulululuuu",
-            "Zack détruit Cloud",
-            "tg",
-            "pler",
-            '"Peak character writing" :',
+            "https://tenor.com/view/dying-dies-dies-from-cringe-dying-from-cringe-dies-to-cringe-gif-7438506245051526559",
+            "https://tenor.com/view/star-wars-cringe-dies-from-cringe-meme-star-wars-meme-gif-22116997",
+            "https://tenor.com/view/dies-dying-cringe-cringe-die-dies-from-cringe-gif-2120415937878153850",
             "https://tenor.com/view/honey-final-fantasy-gif-dancing-twirl-video-game-gif-16574338"
             ]
     choix = random.choice(liste)
 
     if message.author.id == POPOS and random.random() < 0.1:
-        if choix == liste[4] or choix == liste[5]:
-            await message.reply(liste[4])
-            await message.channel.send(liste[5])
-        else:
-            await message.reply(choix)
+        await message.reply(choix)

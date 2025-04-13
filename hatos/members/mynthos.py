@@ -1,22 +1,16 @@
 import os
 import random
-from dotenv import load_dotenv
+from dotenv import load_dotenv, find_dotenv
 
-load_dotenv()
+load_dotenv(find_dotenv())
 MYNTHOS= int(os.getenv("MYNTHOS"))
 LOGOS = int(os.getenv("LOGOS"))
 
 
 
-async def tacos(message):
+async def mynthos(message):
 
     liste = [
-            "ulululuuu",
-            "Zack détruit Cloud",
-            "tg",
-            "pler",
-            '"Peak character writing" :',
-            "https://tenor.com/view/honey-final-fantasy-gif-dancing-twirl-video-game-gif-16574338"
             ]
     choix = random.choice(liste)
 
