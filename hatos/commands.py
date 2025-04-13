@@ -53,7 +53,7 @@ class Help(commands.Cog):
 
         rep = "".join(f"{cmd}\n" for cmd in cmd_list)
 
-        await ctx.send(f"blud a besoin d'aide pour voir les commandes disponibles :mock:\n\n{rep}")
+        await ctx.send(f"blud ne connaît pas les commandes <a:mock:1360922838244135083>\n\n{rep}")
 
 
 
