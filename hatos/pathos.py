@@ -3,7 +3,7 @@ import random
 from dotenv import load_dotenv
 
 load_dotenv()
-TACOS = int(os.getenv("TACOS"))
+PATHOS = int(os.getenv("PATHOS"))
 LOGOS = int(os.getenv("LOGOS"))
 
 
@@ -20,7 +20,7 @@ async def tacos(message):
             ]
     choix = random.choice(liste)
 
-    if message.author.id == TACOS and random.random() < 0.1:
+    if message.author.id == LOGOS and random.random() < 0.1:
         if choix == liste[4] or choix == liste[5]:
             await message.reply(liste[4])
             await message.channel.send(liste[5])
