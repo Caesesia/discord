@@ -1,4 +1,4 @@
-async def pun(message):
+async def puns(message):
 
     msg = message.content.lower().strip().replace(" ", "")
 

@@ -4,11 +4,19 @@ from dotenv import load_dotenv
 import os
 import discord
 
-from snitch import snitch
-from puns import pun
-from homos import homos
-from tacos import tacos
-from nerd import nerd
+from commands.admin import Admin
+from commands.user import User
+from commands.help import Help
+
+from members.homos import homos
+#from members.pathos import pathos
+from members.tacos import tacos
+#from members.popos import popos
+#from members.mynthos import mynthos
+
+from functions.nerd import nerd
+from functions.puns import puns
+from functions.snitch import snitch
 
 load_dotenv()
 TOKEN = os.getenv("TOKEN")
@@ -30,7 +38,9 @@ bot = commands.Bot(command_prefix = ".", intents = intents, help_command = None)
 @bot.event
 async def on_ready():
     print(f'Bot {bot.user} au rapport.')
-    await bot.load_extension("commands")
+    await bot.load_extension("commands.admin")
+    await bot.load_extension("commands.user")
+    await bot.load_extension("commands.help")
 
 @bot.event
 async def on_message(message):
@@ -44,7 +54,7 @@ async def on_message(message):
 
     trig = False
     
-    if await pun(message):
+    if await puns(message):
         trig = True
     elif await nerd(message):
         trig = True

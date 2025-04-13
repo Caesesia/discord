@@ -2,9 +2,9 @@ import os
 import random
 from dotenv import load_dotenv
 
-load_dotenv()
-HOMOS = int(os.getenv("HOMOS"))
-LOGOS = int(os.getenv("LOGOS"))
+load_dotenv("../.env")
+HOMOS = os.getenv("HOMOS")
+LOGOS = os.getenv("LOGOS")
 
 
 
@@ -20,5 +20,5 @@ async def homos(message):
              ]
     choix = random.choice(liste)
 
-    if message.author.id == HOMOS and random.random < 0.2:
+    if message.author.id == HOMOS and random.random() < 0.2:
         await message.reply(choix)

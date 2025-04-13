@@ -4,7 +4,7 @@ from discord.ext import commands
 # REGROUPE LES COMMANDES DISPONIBLES AUX MEMBRES
 # ----------------------------------------------------------------------
 
-class Client(commands.Cog):
+class User(commands.Cog):
     
     def __init__(self, bot):
         self.bot = bot
@@ -19,4 +19,4 @@ class Client(commands.Cog):
 # ----------------------------------------------------------------------
 
 async def setup(bot):
-    await bot.add_cog(Client(bot))
+    await bot.add_cog(User(bot))
