@@ -15,7 +15,6 @@ async def popos(message):
             "https://tenor.com/view/dying-dies-dies-from-cringe-dying-from-cringe-dies-to-cringe-gif-7438506245051526559",
             "https://tenor.com/view/star-wars-cringe-dies-from-cringe-meme-star-wars-meme-gif-22116997",
             "https://tenor.com/view/dies-dying-cringe-cringe-die-dies-from-cringe-gif-2120415937878153850",
-            "https://tenor.com/view/honey-final-fantasy-gif-dancing-twirl-video-game-gif-16574338"
             ]
     choix = random.choice(liste)
 
