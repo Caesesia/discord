@@ -22,7 +22,7 @@ async def tacos(message):
             ]
     choix = random.choice(liste)
 
-    if message.author.id == TACOS and random.random() < 0.2:
+    if message.author.id == TACOS and random.random() < 0.1:
         if choix == liste[6] or choix == liste[7]:
             await message.reply(liste[6])
             await message.channel.send(liste[7])
